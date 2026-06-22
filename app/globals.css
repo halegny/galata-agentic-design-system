@@ -251,3 +251,31 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .galata-token { animation: none; }
 }
+
+/* "Thinking…" shimmer — a soft highlight sweeps across the text while the agent
+   reasons. Stays in the quiet register: muted base, a gentle brighter band. */
+@keyframes galata-shimmer {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+.galata-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--quiet-fg-muted) 0%,
+    var(--foreground) 50%,
+    var(--quiet-fg-muted) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: galata-shimmer 1.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .galata-shimmer {
+    animation: none;
+    -webkit-text-fill-color: var(--quiet-fg-muted);
+    color: var(--quiet-fg-muted);
+  }
+}

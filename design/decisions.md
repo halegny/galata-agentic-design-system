@@ -7,6 +7,26 @@ the point.
 
 ---
 
+## 2026-06-22 — ThinkingBlock (Phase 4): the quiet register
+
+**Decided.** `ThinkingBlock` is the QUIET register. While reasoning it shows a
+soft "Thinking…" shimmer; when done it settles into a collapsed, low-key
+disclosure ("Reasoning · thought for Xs") that expands to a muted, indented
+aside. Collapsed by default.
+
+**Rejected.** Rendering it as a card like ToolCall (that would give reasoning
+medium-register weight and let it compete with the answer). Expanded-by-default
+(reasoning would dominate). A loud spinner for the thinking state (too
+attention-grabbing for quiet).
+
+**Why.** Quiet = recessive, on-demand, never competing with the answer. So it's
+deliberately not a surface — it's an inline disclosure that the eye slides past
+until wanted. The shimmer signals "actively reasoning" while staying in the
+quiet palette (muted base, gentle brighter band), and de-escalates to a
+disclosure once settled. Reduced-motion shows static muted text.
+
+---
+
 ## 2026-06-22 — The composed agent run (Phase 3, part 3)
 
 **Decided.** The hero demo (`/demo` for now; promote to `/` in polish) is a
