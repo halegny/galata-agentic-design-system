@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
     "Consequence is a visual property. Galata sorts every agent output into four registers — quiet, medium, loud, interrupt — so a person always knows how much attention something demands.",
 };
 
-// Runs before first paint to set the theme from saved preference (default:
-// dark, the hero theme). Prevents a flash of the wrong theme on load.
+// Runs before hydration to set the theme from saved preference (default: dark,
+// the hero theme). Prevents a flash of the wrong theme on load.
 const themeScript = `(function(){try{var t=localStorage.getItem('galata-theme');var dark=t?t==='dark':true;document.documentElement.classList.toggle('dark',dark);}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 export default function RootLayout({
@@ -33,10 +34,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Script id="galata-theme" strategy="beforeInteractive">
+          {themeScript}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }

@@ -61,7 +61,7 @@ export default function SwatchPage() {
                 <StatusIndicator status="failed" />
               </div>
               <p className="mt-1 text-xs text-medium-fg-muted">
-                Status reads from the icon; hover or focus it for the label.
+                Status reads from the icon; hover it for the label.
               </p>
             </div>
             {/* Full status language preview: pending / running / succeeded / failed */}

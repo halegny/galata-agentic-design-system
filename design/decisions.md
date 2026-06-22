@@ -7,6 +7,33 @@ the point.
 
 ---
 
+## 2026-06-22 — ToolCall: the hero component (Phase 2)
+
+**Decided.** `ToolCall` (medium register) renders collapsed by default — status
+icon + monospace function name + optional summary — and expands to Input/Output
+as formatted JSON (failed calls show an Error instead). Built on Radix
+Collapsible: the whole header row is the trigger, giving `aria-expanded`,
+keyboard operation, and focus management for free. The card stays neutral in
+every state; only the status icon carries color.
+
+**Rejected.** Expanded-by-default (a wall of JSON buries the answer — the loud
+register loses to noise). Auto-expanding failed calls (fights the medium
+register's calm; the red icon already draws the eye). Hidden-entirely
+(destroys auditability, which is the whole point in high-stakes contexts).
+
+**Why.** Tool calls are medium register — "present enough to audit, calm enough
+to ignore." Collapse-by-default *is* that principle expressed as a default.
+
+**Accessibility lesson (logged on purpose).** First pass made the status icon a
+`<button>` for a keyboard-focusable tooltip, which nested a button inside the
+row's trigger button — invalid HTML, hydration error. Fix: a status is
+*information, not an action*, so it became `<span role="img" aria-label>` with a
+hover tooltip. More correct semantically, fewer Tab stops, and the status word
+is still announced as part of the focused row. The wrong instinct (make
+everything focusable) produced worse a11y than the right one.
+
+---
+
 ## 2026-06-22 — Token foundation: two layers, register-driven (Phase 1)
 
 **Decided.** A two-layer token system in `app/globals.css`:

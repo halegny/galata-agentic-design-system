@@ -14,8 +14,11 @@ const META: Record<ToolStatus, { label: string; color: string }> = {
 
 /**
  * Icon-only status with a tooltip. The icon SHAPE carries the meaning (works on
- * touch and without color), the tooltip adds the precise word on hover/focus,
- * and aria-label exposes it to screen readers.
+ * touch and without color), the tooltip adds the precise word on hover, and
+ * role="img" + aria-label exposes it to screen readers.
+ *
+ * It is intentionally NOT a button — a status is information, not an action —
+ * so it adds no extra Tab stop and can safely nest inside other controls.
  */
 export function StatusIndicator({
   status,
@@ -29,17 +32,16 @@ export function StatusIndicator({
     <Tooltip.Provider delayDuration={150}>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
-          <button
-            type="button"
+          <span
+            role="img"
             aria-label={meta.label}
             className={cn(
-              "inline-flex cursor-default items-center justify-center rounded-full",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "inline-flex items-center justify-center",
               meta.color,
             )}
           >
             <StatusIcon status={status} size={size} />
-          </button>
+          </span>
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content
