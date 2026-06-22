@@ -7,6 +7,24 @@ the point.
 
 ---
 
+## 2026-06-22 — Citation / SourceList (Phase 4): provenance
+
+**Decided.** A pair of medium-register components. `Citation` is an inline,
+slightly-raised numbered badge at the end of a claim — hover/focus reveals the
+source (tooltip), click opens it. `SourceList` is a compact numbered list whose
+numbers match the inline citations, so any claim is traceable. They share one
+badge style so the numbering reads as one system.
+
+**Rejected.** Footnote-only (forces a jump to the bottom to learn anything).
+Inline full-URL links (clutter the prose, break the calm). A heavy source "card"
+per citation (medium register should stay scannable, not dominate).
+
+**Why.** "Where did this come from?" must always be answerable — provenance is a
+default, not a feature. Calm inline markers keep the claim readable while the
+matching list makes the trail explicit. Auditability without noise.
+
+---
+
 ## 2026-06-22 — AgentStatus (Phase 4): medium-register progress
 
 **Decided.** `AgentStatus` shows multi-step work as a calm vertical timeline.
