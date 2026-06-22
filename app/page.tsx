@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ExternalLinkIcon } from "@/components/icons";
+import { GalataMark } from "@/components/galata-mark";
 
 const USE_CASES = [
   { href: "/demo", industry: "Finance", action: "Wire $40,000" },
@@ -15,7 +16,8 @@ export default function Home() {
     <div className="mx-auto w-full max-w-3xl px-6 py-10">
       {/* Top bar */}
       <nav className="flex items-center justify-between">
-        <span className="text-sm font-semibold tracking-tight text-foreground">
+        <span className="flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground">
+          <GalataMark className="size-[1.375rem]" />
           Galata
         </span>
         <div className="flex items-center gap-4">
