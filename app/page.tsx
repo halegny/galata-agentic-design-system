@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ExternalLinkIcon } from "@/components/icons";
 
 const USE_CASES = [
   { href: "/demo", industry: "Finance", action: "Wire $40,000" },
@@ -28,9 +29,10 @@ export default function Home() {
             href="https://github.com/halegny/galata-agentic-design-system"
             target="_blank"
             rel="noreferrer"
-            className="text-sm text-muted transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-foreground"
           >
             GitHub
+            <ExternalLinkIcon className="opacity-70" />
           </a>
           <ThemeToggle />
         </div>
@@ -54,16 +56,21 @@ export default function Home() {
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link
             href="/demo"
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-[var(--radius)] bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             Watch a live agent run
-            <span aria-hidden="true">→</span>
+            <ExternalLinkIcon />
           </Link>
           <Link
             href="/use-cases"
-            className="inline-flex items-center rounded-[var(--radius)] border border-border px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-medium-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-[var(--radius)] border border-border px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-medium-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             Explore use cases
+            <ExternalLinkIcon className="opacity-70" />
           </Link>
         </div>
       </header>
@@ -138,6 +145,8 @@ export default function Home() {
             <Link
               key={c.href}
               href={c.href}
+              target="_blank"
+              rel="noreferrer"
               className="group rounded-[var(--radius)] border border-medium-border bg-medium-surface px-4 py-3 transition-colors hover:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <p className="text-[0.6875rem] font-medium uppercase tracking-wide text-medium-fg-muted">
@@ -145,7 +154,7 @@ export default function Home() {
               </p>
               <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-medium-fg">
                 {c.action}
-                <span className="text-accent transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+                <ExternalLinkIcon className="text-accent" />
               </p>
             </Link>
           ))}
@@ -236,12 +245,12 @@ function ComponentGroup({
           <li key={it.href}>
             <Link
               href={it.href}
+              target="_blank"
+              rel="noreferrer"
               className="group inline-flex items-center gap-1.5 text-sm text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:underline"
             >
               {it.name}
-              <span className="text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent" aria-hidden="true">
-                →
-              </span>
+              <ExternalLinkIcon className="text-muted group-hover:text-accent" />
             </Link>
           </li>
         ))}

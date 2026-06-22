@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ExternalLinkIcon } from "@/components/icons";
 
 const CASES = [
   {
@@ -57,6 +58,8 @@ export default function UseCasesIndex() {
           <Link
             key={c.href}
             href={c.href}
+            target="_blank"
+            rel="noreferrer"
             className="group rounded-[var(--radius)] border border-medium-border bg-medium-surface p-4 transition-colors hover:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <p className="text-[0.6875rem] font-medium uppercase tracking-wide text-medium-fg-muted">
@@ -67,7 +70,7 @@ export default function UseCasesIndex() {
             </p>
             <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-accent">
               {c.action}
-              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              <ExternalLinkIcon />
             </p>
           </Link>
         ))}

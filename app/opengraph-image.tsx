@@ -5,6 +5,9 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const LOGO_SVG = `<svg width="56" height="56" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5.5" fill="#5663f5"/><g fill="#ffffff"><circle cx="12" cy="2.4" r="0.85"/><path d="M12 3.3 L16.8 8.9 H7.2 Z"/><path fill-rule="evenodd" d="M8 8.9 H16 V19.6 H8 Z M8.9 15 V11.9 A0.8 0.8 0 0 1 10.5 11.9 V15 Z M11.2 15 V11.9 A0.8 0.8 0 0 1 12.8 11.9 V15 Z M13.5 15 V11.9 A0.8 0.8 0 0 1 15.1 11.9 V15 Z"/><rect x="6.6" y="19.4" width="10.8" height="2.4" rx="0.6"/></g></svg>`;
+const LOGO_SRC = `data:image/svg+xml;utf8,${encodeURIComponent(LOGO_SVG)}`;
+
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -20,24 +23,8 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              gap: 5,
-              width: 44,
-              height: 44,
-              backgroundColor: "#5663f5",
-              borderRadius: 10,
-              padding: 11,
-              boxSizing: "border-box",
-            }}
-          >
-            <div style={{ width: 5, height: 8, backgroundColor: "rgba(255,255,255,0.6)", borderRadius: 3 }} />
-            <div style={{ width: 5, height: 14, backgroundColor: "rgba(255,255,255,0.8)", borderRadius: 3 }} />
-            <div style={{ width: 5, height: 20, backgroundColor: "#ffffff", borderRadius: 3 }} />
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          <img width={56} height={56} src={LOGO_SRC} alt="" />
           <div
             style={{
               fontSize: 26,
