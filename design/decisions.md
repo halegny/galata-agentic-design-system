@@ -7,6 +7,33 @@ the point.
 
 ---
 
+## 2026-06-22 — Industry use-case pages + the AgentRun engine
+
+**Decided.** Beyond the original plan: sample pages applying the same four
+registers to five industries — Finance (`/demo`), DevOps, Legal, Healthcare,
+Customer support — each a full scripted agent run ending in an approval before
+the irreversible moment. Rather than copy the `/demo` director five times, the
+run engine is extracted into one reusable `<AgentRun>` that takes a *script*
+(an async screenplay using helpers: user/think/say/tool/status/sources/ask/
+interruptible). Each industry page is just its script (~60 lines).
+
+**Component coverage across the set:** ThinkingBlock + Message + ToolCall +
+ApprovalGate in all; Citation/SourceList in Legal; AgentStatus in Support;
+Interrupt in DevOps — a genuinely interactive stoppable scan, so every component
+earns its place in a real flow (not just a preview page).
+
+**Rejected.** Duplicating the director per industry (unmaintainable). Leaving
+Interrupt only on its preview page (a component the system never uses doesn't
+earn its place — the thesis demands each one belong somewhere).
+
+**Why.** The thesis claims to *generalise*. Showing one system handle a wire, a
+database drop, a binding legal notice, a prescription, and a refund — each
+pausing for a human before the consequential act — proves it instead of
+asserting it. The shared engine is the design system's claim ("consequence is
+systemic") expressed in the demo architecture itself.
+
+---
+
 ## 2026-06-22 — Interrupt (Phase 4): stop/cancel for work in flight
 
 **Decided.** `Interrupt` is the second interrupt-register component: a stop
