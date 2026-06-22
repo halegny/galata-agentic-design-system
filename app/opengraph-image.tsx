@@ -5,7 +5,7 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const LOGO_SVG = `<svg width="56" height="56" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5.5" fill="#5663f5"/><g fill="#ffffff"><circle cx="12" cy="2.4" r="0.85"/><path d="M12 3.3 L16.8 8.9 H7.2 Z"/><path fill-rule="evenodd" d="M8 8.9 H16 V19.6 H8 Z M8.9 15 V11.9 A0.8 0.8 0 0 1 10.5 11.9 V15 Z M11.2 15 V11.9 A0.8 0.8 0 0 1 12.8 11.9 V15 Z M13.5 15 V11.9 A0.8 0.8 0 0 1 15.1 11.9 V15 Z"/><rect x="6.6" y="19.4" width="10.8" height="2.4" rx="0.6"/></g></svg>`;
+const LOGO_SVG = `<svg width="56" height="56" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5.5" fill="#5663f5"/><g fill="#ffffff"><path d="M12 6 L17.2 10.2 H6.8 Z"/><path fill-rule="evenodd" d="M7.3 10.6 H16.7 V18.5 H7.3 Z M8.4 18.5 V14.5 A1.4 1.4 0 0 1 11.2 14.5 V18.5 Z M12.8 18.5 V14.5 A1.4 1.4 0 0 1 15.6 14.5 V18.5 Z"/></g></svg>`;
 const LOGO_SRC = `data:image/svg+xml;utf8,${encodeURIComponent(LOGO_SVG)}`;
 
 export default function OpengraphImage() {
