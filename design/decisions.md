@@ -7,6 +7,25 @@ the point.
 
 ---
 
+## 2026-06-22 — AgentStatus (Phase 4): medium-register progress
+
+**Decided.** `AgentStatus` shows multi-step work as a calm vertical timeline.
+Each step is pending / active / done / failed; only the *active* step is
+emphasised (full contrast, medium weight) while done and pending steps recede. A
+connector line fills green between completed steps. Reuses the status language
+(green done · accent spinner active · muted dot pending · red failed).
+
+**Rejected.** Emphasising every step equally (would read as a loud checklist
+competing for attention). A progress bar (loses the per-step legibility that
+makes "where is it now" answerable).
+
+**Why.** Medium register = "present enough to audit, calm enough to ignore." A
+timeline where only the current step stands out lets a person glance and know
+the state without the component shouting. It's the same restraint as ToolCall,
+applied to multi-step work.
+
+---
+
 ## 2026-06-22 — ThinkingBlock (Phase 4): the quiet register
 
 **Decided.** `ThinkingBlock` is the QUIET register. While reasoning it shows a
