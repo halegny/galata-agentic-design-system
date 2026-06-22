@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Message } from "@/components/galata/message";
+import { ThinkingBlock } from "@/components/galata/thinking-block";
 import { ToolCall } from "@/components/galata/tool-call";
 import {
   ApprovalGate,
@@ -12,6 +13,7 @@ import type { ToolStatus } from "@/components/galata/status-indicator";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 type Item =
+  | { id: number; kind: "thinking"; status: "thinking" | "done"; reasoning: string; duration?: string }
   | { id: number; kind: "message"; role: "user" | "assistant"; content: string; streaming?: boolean }
   | { id: number; kind: "tool"; name: string; summary?: string; status: ToolStatus; input?: unknown; output?: unknown }
   | { id: number; kind: "approval"; title: string; action: string; description?: string; details?: ApprovalDetail[]; status: ApprovalStatus };
@@ -41,6 +43,22 @@ export default function DemoPage() {
 
     const addUser = (content: string) =>
       setItems((p) => [...p, { id: newId(), kind: "message", role: "user", content }]);
+
+    // Shows a "Thinking…" shimmer, then settles into recessive reasoning.
+    const think = async (o: { reasoning: string; ms?: number }) => {
+      const ms = o.ms ?? 2400;
+      const id = newId();
+      setItems((p) => [...p, { id, kind: "thinking", status: "thinking", reasoning: o.reasoning }]);
+      await wait(ms);
+      if (!ok()) return;
+      setItems((p) =>
+        p.map((it) =>
+          it.id === id && it.kind === "thinking"
+            ? { ...it, status: "done", duration: `${Math.round(ms / 1000)}s` }
+            : it,
+        ),
+      );
+    };
 
     // Resolves when the streamed message finishes appearing.
     const say = (content: string) =>
@@ -98,7 +116,15 @@ export default function DemoPage() {
       setPhase("running");
 
       addUser(PROMPT);
-      await wait(700);
+      await wait(600);
+      if (!ok()) return;
+
+      await think({
+        reasoning:
+          "The user wants to pay Meridian Logistics. Before moving any money I'll confirm there are outstanding invoices, total them, and surface the oldest overdue date — then ask for approval, since this is a consequential action.",
+      });
+      if (!ok()) return;
+      await wait(400);
       if (!ok()) return;
 
       await say("Let me check your account for outstanding invoices to Meridian Logistics.");
@@ -190,6 +216,17 @@ export default function DemoPage() {
 
       <div className="flex-1 space-y-4">
         {items.map((item) => {
+          if (item.kind === "thinking") {
+            return (
+              <ThinkingBlock
+                key={item.id}
+                status={item.status}
+                duration={item.duration}
+              >
+                {item.reasoning}
+              </ThinkingBlock>
+            );
+          }
           if (item.kind === "message") {
             return (
               <Message
