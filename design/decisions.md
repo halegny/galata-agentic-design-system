@@ -7,6 +7,27 @@ the point.
 
 ---
 
+## 2026-06-22 — Interrupt (Phase 4): stop/cancel for work in flight
+
+**Decided.** `Interrupt` is the second interrupt-register component: a stop
+control for work already running. An in-flight bar (spinner + what's running +
+Stop). The Stop button reveals a danger tint on *hover* rather than sitting in
+alarm-red. When stopped, it de-escalates to a calm record — but the stop icon +
+"Stopped" label go red (state signal), while the surface stays neutral.
+
+**Rejected.** A focus trap like ApprovalGate (Interrupt is a persistent escape
+hatch, not a blocking decision — trapping focus on it would be hostile).
+Permanent alarm-red on the Stop control (stopping is a deliberate user choice,
+not an error; red-on-hover communicates the intent without shouting). A full red
+surface on the stopped record (overstates a deliberate cancel).
+
+**Why.** Two interrupt-register components, two different jobs: ApprovalGate
+blocks BEFORE a consequential action; Interrupt halts one already in motion.
+Same register (both consequential), but Interrupt is deliberately lighter — the
+weight difference is the point.
+
+---
+
 ## 2026-06-22 — Citation / SourceList (Phase 4): provenance
 
 **Decided.** A pair of medium-register components. `Citation` is an inline,
