@@ -7,6 +7,21 @@ the point.
 
 ---
 
+## 2026-06-22 — Defer Vercel deploy until there's something to show
+
+**Decided.** Keep the repo private on GitHub for now; do not deploy to Vercel
+yet. Deploy when the hero `ToolCall` (Phase 2) or composed demo (Phase 3) looks
+good — and flip the repo public in the same moment.
+
+**Rejected.** The kickoff plan's "deploy empty early to prove the pipeline."
+
+**Why.** The Next.js + Vercel path is extremely well-trodden and low-risk, and a
+passing local `npm run build` already gives ~90% of that confidence. An empty
+live URL serves nothing. A live link matters when there's something worth
+sharing — so deploy then, not before.
+
+---
+
 ## 2026-06-22 — Project setup (Phase 0)
 
 **Decided.** One Next.js app (App Router), not a monorepo. Components live in
