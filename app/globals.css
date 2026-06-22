@@ -1,26 +1,206 @@
 @import "tailwindcss";
 
+/*
+  ============================================================================
+  GALATA TOKEN SYSTEM
+  ============================================================================
+  Two layers, on purpose (see design/decisions.md):
+
+    LAYER 1 — PRIMITIVES   raw palette, named by what they ARE (neutral-900).
+                           Components NEVER use these directly.
+    LAYER 2 — SEMANTIC     per-register tokens, named by their ROLE
+                           (--medium-surface). Built FROM primitives.
+                           Components only ever use these.
+
+  Dark mode is class-based: the `.dark` class on <html> swaps the semantic
+  values. Because components read semantic tokens, they get the right theme
+  automatically — no `dark:` prefixes needed in component markup.
+  ============================================================================
+*/
+
+/* Make `dark:` utilities respond to the .dark class instead of the OS setting,
+   for the rare cases a component needs a one-off dark override. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ----------------------------------------------------------------------------
+   LAYER 1 — PRIMITIVES (theme-agnostic raw palette)
+   Cool, navy-tinted neutrals + one royal-blue accent, drawn from the
+   reference dashboard: deep navy base, vivid indigo as the single accent.
+---------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Neutral scale (cool / navy-tinted) */
+  --neutral-0:   #ffffff;
+  --neutral-50:  #f6f7f9;
+  --neutral-100: #eceef2;
+  --neutral-200: #dde0e7;
+  --neutral-300: #c3c8d2;
+  --neutral-400: #9aa1b1;
+  --neutral-500: #6b7385;
+  --neutral-600: #4a5263;
+  --neutral-700: #2f3749;
+  --neutral-800: #1c2433;
+  --neutral-850: #161e2e;
+  --neutral-900: #0f1420;
+  --neutral-950: #0a0e18;
+
+  /* Accent scale (royal blue / indigo) — the ONE accent */
+  --blue-300: #9aa2ff;
+  --blue-400: #7480ff;
+  --blue-500: #4e5bf2; /* brand */
+  --blue-600: #3b47d6;
+  --blue-700: #2f39ab;
+
+  /* Shared shape tokens */
+  --radius: 0.625rem; /* 10px — generous, matches the reference */
 }
 
+/* ----------------------------------------------------------------------------
+   LAYER 2 — SEMANTIC TOKENS · LIGHT THEME (default)
+   This is where the four REGISTERS become real. Each register defines its
+   own surface / text / muted-text / border. A component picks a register;
+   it never picks a color.
+---------------------------------------------------------------------------- */
+:root {
+  /* Global */
+  --background: var(--neutral-50);
+  --foreground: #11151f;
+  --muted: #5b6374;
+  --border: #e5e8ed;
+  --accent: var(--blue-500);
+  --accent-foreground: #ffffff;
+  --ring: var(--blue-500);
+
+  /* Status — a deliberate, controlled exception to "one accent". These signal
+     state ONLY (succeeded / failed); never used as fills or decoration.
+     Muted and cool-leaning so they read as information, not alarm. */
+  --status-success: #1f9d63;
+  --status-danger: #cf4d4d;
+
+  /* QUIET — reasoning / scratch. Recessive: faint surface, calm text. */
+  --quiet-surface: #f0f2f6;
+  --quiet-fg: #586173;
+  --quiet-fg-muted: #8b93a2;
+  --quiet-border: transparent;
+
+  /* MEDIUM — tool calls / status. Scannable neutral card. */
+  --medium-surface: #ffffff;
+  --medium-fg: #1e2532;
+  --medium-fg-muted: #667085;
+  --medium-border: #e4e7ed;
+
+  /* LOUD — the answer. Highest contrast text, sits on the page (no card). */
+  --loud-surface: transparent;
+  --loud-fg: #0e131c;
+  --loud-fg-muted: #515a6b;
+  --loud-border: transparent;
+  --loud-accent: var(--accent);
+
+  /* INTERRUPT — approvals. Weight via STRUCTURE: lifted surface, strong
+     border, real elevation. Distinct without alarm-red. */
+  --interrupt-surface: #ffffff;
+  --interrupt-fg: #141a24;
+  --interrupt-fg-muted: #515a6b;
+  --interrupt-border: #cad1dd;
+  --interrupt-shadow: 0 12px 32px -10px rgba(15, 23, 42, 0.22);
+}
+
+/* ----------------------------------------------------------------------------
+   LAYER 2 — SEMANTIC TOKENS · DARK THEME (the hero)
+   Same token names, swapped values. .dark on <html> activates these.
+---------------------------------------------------------------------------- */
+.dark {
+  /* Global */
+  --background: #0e1320;
+  --foreground: #e9ecf2;
+  --muted: #828b9e;
+  --border: #232b3b;
+  --accent: #5663f5;
+  --accent-foreground: #ffffff;
+  --ring: #6e7aff;
+
+  /* Status (see light theme note) */
+  --status-success: #54c08a;
+  --status-danger: #ec6f6f;
+
+  /* QUIET */
+  --quiet-surface: #121826;
+  --quiet-fg: #aab2c4;
+  --quiet-fg-muted: #6d7588;
+  --quiet-border: transparent;
+
+  /* MEDIUM */
+  --medium-surface: #161e2e;
+  --medium-fg: #d6dbe6;
+  --medium-fg-muted: #828b9e;
+  --medium-border: #242d3f;
+
+  /* LOUD */
+  --loud-surface: transparent;
+  --loud-fg: #f5f8fc;
+  --loud-fg-muted: #aab2c4;
+  --loud-border: transparent;
+  --loud-accent: var(--accent);
+
+  /* INTERRUPT */
+  --interrupt-surface: #1a2233;
+  --interrupt-fg: #f2f5fa;
+  --interrupt-fg-muted: #9aa2b4;
+  --interrupt-border: #394459;
+  --interrupt-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.55);
+}
+
+/* ----------------------------------------------------------------------------
+   TAILWIND THEME BRIDGE
+   Expose semantic tokens to Tailwind so utilities exist: bg-medium-surface,
+   text-quiet-fg, border-interrupt-border, shadow-interrupt, etc.
+   `inline` = the utility emits `var(--token)`, so .dark overrides apply live.
+---------------------------------------------------------------------------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+
+  --color-status-success: var(--status-success);
+  --color-status-danger: var(--status-danger);
+
+  --color-quiet-surface: var(--quiet-surface);
+  --color-quiet-fg: var(--quiet-fg);
+  --color-quiet-fg-muted: var(--quiet-fg-muted);
+  --color-quiet-border: var(--quiet-border);
+
+  --color-medium-surface: var(--medium-surface);
+  --color-medium-fg: var(--medium-fg);
+  --color-medium-fg-muted: var(--medium-fg-muted);
+  --color-medium-border: var(--medium-border);
+
+  --color-loud-surface: var(--loud-surface);
+  --color-loud-fg: var(--loud-fg);
+  --color-loud-fg-muted: var(--loud-fg-muted);
+  --color-loud-border: var(--loud-border);
+  --color-loud-accent: var(--loud-accent);
+
+  --color-interrupt-surface: var(--interrupt-surface);
+  --color-interrupt-fg: var(--interrupt-fg);
+  --color-interrupt-fg-muted: var(--interrupt-fg-muted);
+  --color-interrupt-border: var(--interrupt-border);
+
+  --shadow-interrupt: var(--interrupt-shadow);
+
+  --radius-card: var(--radius);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ----------------------------------------------------------------------------
+   BASE
+---------------------------------------------------------------------------- */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
