@@ -7,6 +7,30 @@ the point.
 
 ---
 
+## 2026-06-22 — The composed agent run (Phase 3, part 3)
+
+**Decided.** The hero demo (`/demo` for now; promote to `/` in polish) is a
+*scripted* agent run, written as an async "screenplay": `addUser → say → tool →
+say → await ask → branch`. Each helper appends/updates a transcript item and
+returns a promise that resolves on the right signal — `say()` on stream
+complete, `tool()` after a delay, and `ask()` only on the human's decision. The
+`await ask(...)` is literally what makes the run pause at the gate. It branches:
+approve → issue_payment + confirmation; reject → stands down.
+
+**Rejected.** Auto-downloading a receipt after the wire (an unrequested action —
+violates the project's own "never surprise the human" rule; a download must be
+*offered*). A real free-chat input (the run is scripted; a canned prompt is
+honest). Building a generic timeline engine (the narrative is fixed; a readable
+linear screenplay beats an abstraction here).
+
+**Why.** This is the proof: a visitor watches consequence become a visual
+property without a word of explanation — calm medium/loud stream, then the
+interrupt that clearly leaves the stream. The async-screenplay shape keeps the
+"director" readable and makes the pause-for-approval fall out naturally from
+`await`. A run token (runKey) + cancel-on-cleanup makes replay safe.
+
+---
+
 ## 2026-06-22 — ApprovalGate (Phase 3, part 2)
 
 **Decided.** `ApprovalGate` (interrupt register) is a distinct, weighty,
