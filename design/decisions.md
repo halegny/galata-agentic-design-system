@@ -7,6 +7,35 @@ the point.
 
 ---
 
+## 2026-06-22 — Message + streaming reveal (Phase 3, part 1)
+
+**Decided.** `Message` carries two roles: `assistant` is the LOUD register (the
+answer — highest contrast, sits on the page, no bubble), `user` is the human
+prompt (an accent bubble, deliberately outside the register system since it
+isn't agent output). Assistant text streams in **continuously, word by word**:
+each word fades over a long ramp (~1.3s) while words arrive every ~90ms, so
+~14 words are always mid-fade — a flowing opacity gradient, never stepping.
+
+**Rejected.** A top-to-bottom gradient "sweep" reveal (looked smooth but is
+*dishonest* — it reveals whole lines at once, not how a model actually
+generates text; reads as a marketing flourish, not an agent thinking). A
+whole-message blur-to-focus (appears all at once — not gradual). Word-by-word
+with pauses between sentences (the "reveal-stop-wait" stutter). A blurred fade
+(shimmered and tired the eye).
+
+**Why.** Galata's thesis is legible honesty. An LLM generates text token by
+token in reading order, so word-by-word streaming is the truthful representation
+— and the convention users recognise as "being generated live." The craft was
+in tuning it to *flow* (long overlapping fade, no pauses) so honesty didn't cost
+smoothness.
+
+**Accessibility.** The animated words are decorative (`aria-hidden`); a separate
+visually-hidden live region announces the settled message once, so screen
+readers aren't spammed word-by-word. Reduced-motion shows the text instantly.
+Browser state (reduced-motion, theme) is read via `useSyncExternalStore`.
+
+---
+
 ## 2026-06-22 — ToolCall: the hero component (Phase 2)
 
 **Decided.** `ToolCall` (medium register) renders collapsed by default — status

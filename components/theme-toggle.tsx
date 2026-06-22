@@ -1,7 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
+
+// The theme lives on the <html> class (set before paint by the layout script).
+// We read it via useSyncExternalStore and notify via a custom event on toggle —
+// the correct way to subscribe to external (DOM) state, hydration-safe.
+function subscribe(onChange: () => void) {
+  window.addEventListener("galata-theme-change", onChange);
+  return () => window.removeEventListener("galata-theme-change", onChange);
+}
+function isDarkNow() {
+  return document.documentElement.classList.contains("dark");
+}
 
 /**
  * A light/dark toggle. The actual theme is applied before paint by the inline
@@ -9,22 +20,18 @@ import { cn } from "@/lib/utils";
  * and remembers the choice in localStorage.
  */
 export function ThemeToggle({ className }: { className?: string }) {
-  // null until mounted, so we don't render the wrong icon during hydration.
-  const [isDark, setIsDark] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains("dark"));
-  }, []);
+  // Server snapshot is `true` (dark is the default theme), matching the layout.
+  const isDark = useSyncExternalStore(subscribe, isDarkNow, () => true);
 
   function toggle() {
-    const next = !document.documentElement.classList.contains("dark");
+    const next = !isDarkNow();
     document.documentElement.classList.toggle("dark", next);
     try {
       localStorage.setItem("galata-theme", next ? "dark" : "light");
     } catch {
       // ignore: localStorage can be unavailable (private mode, etc.)
     }
-    setIsDark(next);
+    window.dispatchEvent(new Event("galata-theme-change"));
   }
 
   return (
@@ -40,8 +47,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         className,
       )}
     >
-      {/* Render only after mount to avoid an icon mismatch flash */}
-      {isDark === null ? null : isDark ? <MoonIcon /> : <SunIcon />}
+      {isDark ? <MoonIcon /> : <SunIcon />}
     </button>
   );
 }
