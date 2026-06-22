@@ -23,13 +23,13 @@ export default function MessagePage() {
       </header>
 
       <div className="space-y-6">
-        <Message role="user" content="Pay our outstanding balance to Acme Corp." />
+        <Message role="user" content="Pay our outstanding balance to Meridian Logistics." />
 
         <Message
           role="assistant"
           streaming
           streamKey={run}
-          content="I checked your account and found 3 overdue invoices to Acme Corp totaling $40,000 — the oldest is 42 days past due. Because this moves real money, I'll need your approval before sending the wire."
+          content="I checked your account and found 3 overdue invoices to Meridian Logistics totaling $40,000 — the oldest is 42 days past due. Because this moves real money, I'll need your approval before sending the wire."
         />
 
         <div className="pt-2">
@@ -48,7 +48,7 @@ export default function MessagePage() {
           </p>
           <Message
             role="assistant"
-            content="Done. I've sent $40,000 to Acme Corp. Confirmation #WIRE-7F2A91."
+            content="Done. I've sent $40,000 to Meridian Logistics. Confirmation #WIRE-7F2A91."
           />
         </div>
       </div>

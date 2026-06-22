@@ -95,7 +95,7 @@ export default function SwatchPage() {
         >
           <div className="rounded-[var(--radius)] border border-interrupt-border bg-interrupt-surface px-5 py-4 shadow-interrupt">
             <p className="text-sm font-semibold text-interrupt-fg">
-              Approve wire transfer of $40,000 to Acme Corp?
+              Approve wire transfer of $40,000 to Meridian Logistics?
             </p>
             <p className="mt-1 text-xs text-interrupt-fg-muted">
               Weight comes from structure — lifted surface, border, elevation —

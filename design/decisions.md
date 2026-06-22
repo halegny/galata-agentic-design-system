@@ -7,6 +7,33 @@ the point.
 
 ---
 
+## 2026-06-22 — ApprovalGate (Phase 3, part 2)
+
+**Decided.** `ApprovalGate` (interrupt register) is a distinct, weighty,
+BLOCKING surface anchored in the stream. Weight from structure — lifted surface,
+strong border, elevation — never alarm-red. Pending state shows a question
+(`title`), structured `details` to judge, and Approve/Reject. On resolve it
+de-escalates to a calm record using `action` (a statement, since the question
+phrasing reads wrong past-tense).
+
+**Rejected.** Radix Dialog/AlertDialog — it renders a full-screen overlay with a
+backdrop, which the thesis explicitly rejects (destroys context, trains
+reflexive dismissal). So focus management is hand-rolled to keep the gate inline.
+Auto-focusing the Approve button (an accidental Enter would commit a $40k wire).
+
+**Why / accessibility (the point — a money-moving control must be safe for
+everyone).** role="alertdialog" with labelled title + described body. When the
+gate appears, focus moves to the gate itself (not Approve). Tab is trapped
+between the two actions while pending — the only way out is to decide. Focus
+returns to its origin on resolve. The resolved record uses role="status" so the
+outcome is announced.
+
+**Note.** aria-modal is intentionally omitted: there's no visual backdrop
+inerting the page, so claiming modality would over-promise. The Tab trap plus
+focus move give keyboard users the guidance without lying to assistive tech.
+
+---
+
 ## 2026-06-22 — Message + streaming reveal (Phase 3, part 1)
 
 **Decided.** `Message` carries two roles: `assistant` is the LOUD register (the

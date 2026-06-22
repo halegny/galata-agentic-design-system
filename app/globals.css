@@ -67,6 +67,7 @@
   --muted: #5b6374;
   --border: #e5e8ed;
   --accent: var(--blue-500);
+  --accent-hover: var(--blue-600);
   --accent-foreground: #ffffff;
   --ring: var(--blue-500);
 
@@ -115,6 +116,7 @@
   --muted: #828b9e;
   --border: #232b3b;
   --accent: #5663f5;
+  --accent-hover: #6b77ff;
   --accent-foreground: #ffffff;
   --ring: #6e7aff;
 
@@ -161,6 +163,7 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-ring: var(--ring);
 
